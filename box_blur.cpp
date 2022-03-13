@@ -90,7 +90,7 @@ Image box_blur(Vector2u size, Image img){
             color.r = r;
             color.g = g;
             color.b = b;
-            color.a = img.getPixel(x, y).a;
+            color.a = a;
 
             img.setPixel(x, y, color); 
             //Average of p pixel
