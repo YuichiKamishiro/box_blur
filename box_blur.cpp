@@ -1,4 +1,6 @@
 //It's a simple BoxBlur without applying on borders
+//Author: YuichiKamishiro
+//Contributors: RoziePlaysPython(https://github.com/RoziePlaysPython)
 #include <SFML/Graphics.hpp>
 
 #include <SFML/System/Vector2.hpp>
@@ -38,49 +40,28 @@ int main(int argc, char* argv[]){
 }
 
 Image box_blur(Vector2u size, Image img){
+    Image imgc = img;
     for(int x = 1;x < size.x - 1;x++){
         for(int y = 1;y < size.y - 1;y++){
             int r = 0; int g = 0; int b = 0; int a = 0;
-            r += img.getPixel(x - 1, y + 1).r;
-            r += img.getPixel(x + 0, y + 1).r;  // Top center
-            r += img.getPixel(x + 1, y + 1).r;  // Top right
-            r += img.getPixel(x - 1, y + 0).r;  // Mid left
-            r += img.getPixel(x + 0, y + 0).r;  // Current pixel
-            r += img.getPixel(x + 1, y + 0).r;  // Mid right
-            r += img.getPixel(x - 1, y - 1).r;  // Low left
-            r += img.getPixel(x + 0, y - 1).r;  // Low center
-            r += img.getPixel(x + 1, y - 1).r;  // Low right
-              
-            g += img.getPixel(x - 1, y + 1).g;
-            g += img.getPixel(x + 0, y + 1).g;  // Top center
-            g += img.getPixel(x + 1, y + 1).g;  // Top right
-            g += img.getPixel(x - 1, y + 0).g;  // Mid left
-            g += img.getPixel(x + 0, y + 0).g;  // Current pixel
-            g += img.getPixel(x + 1, y + 0).g;  // Mid right
-            g += img.getPixel(x - 1, y - 1).g;  // Low left
-            g += img.getPixel(x + 0, y - 1).g;  // Low center
-            g += img.getPixel(x + 1, y - 1).g;  // Low right
-              
-            b += img.getPixel(x - 1, y + 1).b;
-            b += img.getPixel(x + 0, y + 1).b;  // Top center
-            b += img.getPixel(x + 1, y + 1).b;  // Top right
-            b += img.getPixel(x - 1, y + 0).b;  // Mid left
-            b += img.getPixel(x + 0, y + 0).b;  // Current pixel
-            b += img.getPixel(x + 1, y + 0).b;  // Mid right
-            b += img.getPixel(x - 1, y - 1).b;  // Low left
-            b += img.getPixel(x + 0, y - 1).b;  // Low center
-            b += img.getPixel(x + 1, y - 1).b;  // Low right
-              
-            a += img.getPixel(x - 1, y + 1).a;
-            a += img.getPixel(x + 0, y + 1).a;  // Top center
-            a += img.getPixel(x + 1, y + 1).a;  // Top right
-            a += img.getPixel(x - 1, y + 0).a;  // Mid left
-            a += img.getPixel(x + 0, y + 0).a;  // Current pixel
-            a += img.getPixel(x + 1, y + 0).a;  // Mid right
-            a += img.getPixel(x - 1, y - 1).a;  // Low left
-            a += img.getPixel(x + 0, y - 1).a;  // Low center
-            a += img.getPixel(x + 1, y - 1).a;  // Low right
-              
+            
+            // 3x3 pixel scanning for red color
+            for(int deltaY = -1; deltaY < 2; deltaY++){
+                for(int deltaX = -1; deltaX < 2; deltaX++){
+                    r += imgc.getPixel(x + deltaX, y + deltaY).r;}};
+            // 3x3 pixel scanning for green color
+            for(int deltaY = -1; deltaY < 2; deltaY++){
+                for(int deltaX = -1; deltaX < 2; deltaX++){
+                    g += imgc.getPixel(x + deltaX, y + deltaY).g;}};
+            // 3x3 pixel scanning for blue color
+            for(int deltaY = -1; deltaY < 2; deltaY++){
+                for(int deltaX = -1; deltaX < 2; deltaX++){
+                    b += imgc.getPixel(x + deltaX, y + deltaY).b;}};
+            // 3x3 pixel scanning for alpha
+            for(int deltaY = -1; deltaY < 2; deltaY++){
+                for(int deltaX = -1; deltaX < 2; deltaX++){
+                    a += imgc.getPixel(x + deltaX, y + deltaY).a;}};
+
             b = b / 9;
             r = r / 9;
             g = g / 9;
