@@ -9,6 +9,8 @@
 // x x x  9
 
 #include <SFML/Graphics.hpp>
+
+#include <SFML/Graphics.hpp>
 #include <SFML/System/Vector2.hpp>
 
 #include <iostream>
@@ -81,6 +83,7 @@ Image box_blur(Vector2u size, Image img){
                     a += imgc.getPixel(x + deltaX, y + deltaY).a;}};
             
             //average of each pixel
+            
             b = b / 9;
             r = r / 9;
             g = g / 9;
